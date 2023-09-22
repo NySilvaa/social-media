@@ -1,0 +1,11 @@
+Arquivo com o intuito de ser um "To Do"
+
+Paletas de cores do site:
+#
+#
+#C9ADA7
+
+
+#EBEEF2
+#D9965B
+#595959
