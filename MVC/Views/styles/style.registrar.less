@@ -34,6 +34,48 @@ img{width: 100%;}
 
 .w50{width: 48%; display: inline-block;}
 
+.dropup_form{ // Mensagem com os critérios para preenchimento de senha
+    background-color: #dee0e4;
+    overflow: hidden;
+    height: 0;
+
+    ul{
+        list-style: none;
+
+        p{
+            margin-bottom: 14px;
+            font-size: 0.9rem;
+        }
+
+        li{
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+            
+            i{
+                vertical-align: top;
+                font-size: 1.1rem;
+                color: #f00;
+            }
+        }
+    }
+}
+
+ul#requerimentsList li i.bx-check{color: #0f0;}
+.dropup_form ul#requerimentsList li.valid{color: #7e7e7e}
+
+.dropup_form.active{
+    position: absolute;
+    top: -190px;
+    left: 60px;
+    padding: 20px 10px;
+    height: auto;
+    overflow: auto;
+    box-shadow:  20px 20px 60px #bebebe94,
+    -20px -20px 60px #ffffff6c;
+    width: 250px;
+}
+
+
 /************   FIM DAS CLASSES AUXILIARES *************/
 section.registrar{padding: 20px 0;}
 
