@@ -19,13 +19,9 @@ btn.addEventListener('click', ()=>{
 const btnInfoPass = document.getElementById('btnInfoPass');
 const infoCampo = document.getElementById('infoCampo');
 
-btnInfoPass.addEventListener('mouseenter', ()=>{
-    infoCampo.classList.add('active')
-})
+btnInfoPass.addEventListener('mouseenter', ()=>infoCampo.classList.add('active'))
 
-btnInfoPass.addEventListener('mouseout', ()=>{
-    infoCampo.classList.remove('active')
-})
+btnInfoPass.addEventListener('mouseout', ()=>infoCampo.classList.remove('active'))
 
     const requerimentsList = document.querySelectorAll('#requerimentsList li')
 
@@ -54,6 +50,4 @@ password.addEventListener('keyup', (e)=>{
     })
 })
 
-password.addEventListener('focus', ()=>{
-    infoCampo.classList.add('active')
-})
+password.addEventListener('focus', () => infoCampo.classList.add('active'))

@@ -1,3 +1,21 @@
+<?php
+    use \MVC\Controllers\RegistrarController;
+    use \MVC\Tools;
+    use \MVC\MySql;
+    MySql::connect();
+
+    if(isset($_POST['acao'])){
+       $createUser = new RegistrarController();
+       
+       if($createUser->registerUser($_POST)){
+            Tools::alert('success','Cadastro realizado!','Faça o login e começe a sua jornada.');
+            header('Location: '.INCLUDE_PATH);
+            die();
+       }else
+            Tools::alert('error','Seu login falhou','Ocorreu algum erro no registro. Tente novamente mais tarde.');
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -29,13 +47,13 @@
 
                         <div class="form_wp">
                             <label for="name" class="txt-dark">Nome</label>
-                            <input type="text" id="nome"  name="nome" />
+                            <input type="text" id="nome"  name="Nome" />
                             <span><i class='bx bx-user'></i></span>
                         </div><!-- /.form_wp -->
 
                         <div class="form_wp">
                             <label for="email" class="txt-dark">Email</label>
-                            <input type="text" id="email" name="email" />
+                            <input type="text" id="email" name="Email" />
                             <span><i class='bx bx-envelope'></i></span>
                         </div><!-- /.form_wp -->
                         
@@ -52,7 +70,7 @@
                                 </div><!-- /.dropup_form -->
 
                             <label for="password" class="txt-dark">Senha <i class='bx bx-error-circle' id="btnInfoPass"></i></label>
-                            <input type="password" class="password"  name="password" />
+                            <input type="password" class="password"  name="Senha" />
                             <span class="pw"><i class='bx bx-hide' id="btnPass"></i></span>
                         </div><!-- /.form_wp -->
 
@@ -69,7 +87,7 @@
                             <!-- /.form_wp -->
 
                             <div class="form_wp">
-                                <button type="submit" name="Enviar" id="btn-form">Criar Conta</button>
+                                <button type="submit" name="acao" id="btn-form">Criar Conta</button>
                             </div><!-- /.form_wp -->
                     </form>
 
@@ -81,7 +99,7 @@
         </div>
     </section>
 
-        <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-        <script src="<?php echo PATH_INTERATIONS?>js/func.form.js"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="<?php echo PATH_INTERATIONS?>js/func.form.js"></script>
 </body>
 </html>

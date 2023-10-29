@@ -1,3 +1,9 @@
+<?php
+    use \MVC\Bcrypt;
+    use \MVC\Tools;
+    use \MVC\MySql;
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -34,11 +40,9 @@
                         </div><!-- /.form_wp -->
                         
                         <div class="form_wp">
-                            
                             <label for="password" class="txt-dark">Senha</label>
                             <input type="password" class="password"  name="password" />
                             <span class="pw"><i class='bx bx-hide' id="btnPass"></i></span>        
-                            
                         </div><!-- /.form_wp -->
 
                         <div class="form_wp w50">
@@ -51,7 +55,7 @@
                         <!-- /.form_wp -->
 
                         <div class="form_wp">
-                            <button type="submit" name="Enviar" id="btn-form">Sign Up</button>
+                            <button type="submit" name="login" id="btn-form">Sign Up</button>
                         </div><!-- /.form_wp -->
                     </form>
 
@@ -64,6 +68,31 @@
     </section>
 
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <script src="<?php echo PATH_INTERATIONS?>js/func.form.js"></script>
+    <script src="<?php echo INCLUDE_PATH?>js/func.form.js"></script>
 </body>
 </html>
+
+<?php
+    if(isset($_POST['login'])){
+        // Usuário está tentando fazer o login
+        $email = $_POST['email'];
+        $senha = $_POST['password'];
+
+        $check = MySql::connect()->prepare('SELECT * FROM users WHERE Email = ?');
+        $check->execute([$email]);
+
+        if($check->rowCount() == 0)
+            Tools::alert('error','Email Inválido.','O email inserido não existe ou não foi escrito corretamente.');
+        else{
+            $senhaBD = $check->fetch()['Senha'];
+
+            if(Bcrypt::check($senha, $senhaBD)){
+                // Verifico se a senha que o user digitou é a mesma que está encriptografada e salva no BD.
+                    $_SESSION['login'] = uniqid();
+                    header('Location: '.INCLUDE_PATH);
+                    die();
+             }else
+                Tools::alert('error','Usuário Inválido.','Email ou senha estão incorretos. Tente novamente.');
+        }
+    }
+?>
