@@ -1,3 +1,4 @@
+
 const btn = document.getElementById('btnPass');
 const password = document.querySelector('.password');
 let open = true;

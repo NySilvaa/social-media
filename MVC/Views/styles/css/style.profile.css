@@ -1,0 +1,111 @@
+main{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+header,  .profile_main, .profile_info .images{width: 100%;}
+
+.highligth{
+    width: 60%;
+    padding: 15px;
+}
+
+.friends{
+    width: 38%;
+    margin: 15px 0 0 2%;
+}
+
+.profile_info{
+    padding: 15px;
+    margin-top: 30px;
+}
+
+.profile_info .img_profile{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #353535; 
+}
+
+.profile_info .box_user_info, .destaque_info{margin-left: 10px;}
+
+.box_user_info h3{
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.box_user_info p{font-size: 0.9rem;}
+
+.box_user_info p, .box_user_info span{color: #555454;}
+
+.box_user_info span{font-size: 0.8rem;}
+
+.profile_info .images{overflow-x: auto;}
+
+.profile_info .images{margin-top: 40px;}
+
+.images_wp{
+    width: 200%;
+    display: flex;
+    gap: 15px;
+}
+
+.img_box{
+    width: calc(33.3% * (100 / 200));
+    padding-top: calc(33.3% * (100 / 200) * 0.4);
+    background-color: #353535;
+}
+
+.highligth h2{
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    color: #92638b;
+}
+
+.destaque_user figure .img_box_destaque{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #353535; 
+}
+
+.destaque_info p{
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.destaque_info span{
+    font-size: 0.8rem;
+    color: #555454;
+}
+
+.destaque_user p.user_description{
+    font-size: 0.9rem;
+    color: #353535;
+    text-align: justify;
+    max-width: 500px;
+    margin-top: 15px;
+}
+
+.img_destaques{
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    max-width: 500px;
+}
+
+.img_destaques figure{
+    width: 50%;
+    padding-top: 50%;
+    background-color: #353535;
+}
+
+.friends h3{color: #92638b;}
+
+.friends a.seeMore{
+    display: block;
+    color: #92638b;
+    margin: 20px auto;
+    text-align: center;
+}

@@ -1,0 +1,89 @@
+.friends_request{
+    display: flex;
+    gap: 20px;
+}
+
+.friends_wp{padding-top: 70px;}
+
+.friends_wp h2{
+    color: #92638b;
+    margin-bottom: 30px;
+    font-size: 1.7rem;
+    letter-spacing: 1px;
+}
+
+.friends_box{
+    background-color: #e0e0e0;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 3px 4px 12px rgba(148, 148, 148, 0.671);
+}
+
+.friends_box figure{
+    width: 80%;
+    padding-top: 80%;
+    background-color: #353535;
+    margin:0 auto 15px auto;
+}
+
+.box_info h3{
+    font-size: 1.3rem;
+    color: #1f1e1e;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.box_info p{
+    font-size: 0.9rem;
+    color: #5a5a5a;
+}
+
+.box_info span.amigos_comum{
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #353535;
+    border-radius: 50%;
+    position: relative;
+}
+
+.box_info span:first-of-type{
+    background-color: #794b72;
+    left: 7px;
+    width: 20px;
+    height: 20px;
+    z-index: 99;
+}
+
+.box_info span:last-of-type{
+    width: 18px;
+    height: 18px;
+    top: 3px;
+}
+
+.friends_box .actions{
+    margin-top: 20px;
+}
+
+.friends_box .actions a{
+    display: block;
+    padding: 6px 13px;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    color: #fff;
+    text-align: center;
+    transition: 0.4s;
+}
+
+.friends_box .actions a > i{vertical-align: middle; font-size: 1.1rem;}
+
+.friends_box .actions a.aceite{background-color: rgb(20, 180, 20)}
+.friends_box .actions a.recuse{background-color: rgb(180, 25, 20);}
+.friends_box .actions a.send{background-color: #92638b;}
+.friends_box .actions a.perfil{border: 2px solid #754d6f; color: #794b72;}
+
+.friends_box .actions a.aceite:hover{background-color: rgb(17, 150, 17)}
+.friends_box .actions a.recuse:hover{background-color: rgb(133, 20, 17);}
+.friends_box .actions a.send:hover{background-color: #663c60;}
+.friends_box .actions a.perfil:hover{background-color:  #92638b; color: #fff;}

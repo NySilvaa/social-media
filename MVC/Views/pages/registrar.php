@@ -100,6 +100,6 @@
     </section>
 
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <script src="<?php echo PATH_INTERATIONS?>js/func.form.js"></script>
+    <script src="<?php echo INCLUDE_PATH?>js/func.form.js" defer></script>
 </body>
 </html>

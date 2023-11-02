@@ -1,3 +1,7 @@
 Arquivo com o intuito de ser um "To Do"
 
-Criar um arquivo com a classe que faz conexão com o banco de dados;
+Sistemas de amizades e validações
+Adicionar conteúdo no feed
+Criar um menu mobile para o campo de conversas (classe .interations) semelhante ao do aside
+Criar um botão interativo que de alguma forma, mostre os componentes do campo de interações (conversas, grupos e contatos),
+        Ele deve funcionar no estilo de um dropup.

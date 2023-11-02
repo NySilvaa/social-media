@@ -82,13 +82,16 @@
         $check->execute([$email]);
 
         if($check->rowCount() == 0)
+        // Vejo se existe algum registro salvo no BD com esse email
             Tools::alert('error','Email Inválido.','O email inserido não existe ou não foi escrito corretamente.');
         else{
-            $senhaBD = $check->fetch()['Senha'];
+            // Aqui é verificado se existe algum registro que bate com o email e senha digitado.
+            $data = $check->fetch();
 
-            if(Bcrypt::check($senha, $senhaBD)){
+            if(Bcrypt::check($senha, $data['Senha'])){
                 // Verifico se a senha que o user digitou é a mesma que está encriptografada e salva no BD.
                     $_SESSION['login'] = uniqid();
+                    $_SESSION['nome'] = $data['Nome'];
                     header('Location: '.INCLUDE_PATH);
                     die();
              }else
