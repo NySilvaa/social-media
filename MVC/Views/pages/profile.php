@@ -1,13 +1,23 @@
 <?php
+    if(!isset($_SESSION['login'])){
+        header('Location:'.INCLUDE_PATH);
+        die();
+    }
+
         use \MVC\Controllers\HomeController;
+        use \MVC\Models\UsuariosModel;
         use \MVC\Cache;
     
         $homeController = new HomeController;
         $homeController->logoff();
+
+        $users = UsuariosModel::listRequest($_SESSION['id']);
+        $date = DateTime::createFromFormat('Y-m-d',$users[5]);
+        
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -32,7 +42,6 @@
                 <figure class="align_box">
                     <div class="img_profile"></div>
                 </figure>
-
                 <div class="box_user_info align_box">
                     <h3><?php echo $_SESSION['nome']?></h3>
                     <p class="profissao ">Programador e Analista de Sistemas</p>
@@ -72,14 +81,14 @@
         </section>
 
         <section class="highligth align_box">
-            <h2 class="txt_black">Últimas publicações: </h2>
+            <h2>Últimas publicações: </h2>
             <div class="destaque_user box">
                 <figure class="align_box">
                     <div class="img_box_destaque"></div>
                 </figure>
                 <div class="destaque_info align_box">
                     <p class="txt_black"><?php echo $_SESSION['nome']?></p>
-                    <span class="">Possui uma conta desde 20/10/2013</span>
+                    <span class="">Possui uma conta desde <?php echo $date->format('d/m/Y'); ?></span>
                 </div>
                 <p class="user_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                     Soluta, dolorum fuga sunt quidem quibusdam repellat aperiam excepturi similique quo aut 
@@ -156,6 +165,6 @@
         </section>
     </main>
 
-    <script src="<?php echo PATH_INTERATIONS?>js/func.feed.js"></script>
+    <script src="<?php echo PATH_INTERATIONS; ?>js/func.feed.js"></script>
 </body>
 </html>

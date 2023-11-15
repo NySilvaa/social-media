@@ -34,7 +34,7 @@
             <div class="register_wp d-flex">
                 <div class="form_register">
                     <div class="title_register">
-                        <h1 class="logo txt-orange"><i class='bx bxs-invader'></i></h1>
+                        <h1 class="logo txt-purple"><i class='bx bxs-invader'></i></h1>
                         <h2 class="txt-dark">Get Started Now!</h2>
                         <p class="title_desc">Welcome in our social media, create account to start your experience.</p>
                     </div><!--title_register-->
@@ -47,7 +47,7 @@
 
                         <div class="form_wp">
                             <label for="name" class="txt-dark">Nome</label>
-                            <input type="text" id="nome"  name="Nome" />
+                            <input type="text" id="name"  name="Nome" />
                             <span><i class='bx bx-user'></i></span>
                         </div><!-- /.form_wp -->
 
@@ -70,9 +70,11 @@
                                 </div><!-- /.dropup_form -->
 
                             <label for="password" class="txt-dark">Senha <i class='bx bx-error-circle' id="btnInfoPass"></i></label>
-                            <input type="password" class="password"  name="Senha" />
+                            <input type="password" class="password"  name="Senha"  id="password"/>
                             <span class="pw"><i class='bx bx-hide' id="btnPass"></i></span>
                         </div><!-- /.form_wp -->
+
+                        <input type="hidden" name="token" value="<?php echo uniqid() ?>">
 
                         <div class="form_wp w50">
                             <label for="ConfirmPass" class="txt-dark">Repetir Senha</label>
@@ -83,9 +85,9 @@
                                 <input type="checkbox" name="policy" id="policy" >
                                 <label for="policy" class="check"><i class="bx bx-check"></i></label>
                                 <p>I'm Read and Agree With to the <a href="#">Privacy Policy</a></p>
-                            </div>
-                            <!-- /.form_wp -->
+                            </div><!-- /.form_wp -->
 
+                            <input type="hidden" name="date_registro" value="<?php echo date("Y-m-d") ?>">
                             <div class="form_wp">
                                 <button type="submit" name="acao" id="btn-form">Criar Conta</button>
                             </div><!-- /.form_wp -->
@@ -100,6 +102,6 @@
     </section>
 
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <script src="<?php echo INCLUDE_PATH?>js/func.form.js" defer></script>
+    <script src="<?php echo PATH_INTERATIONS; ?>js/func.form.js" defer></script>
 </body>
 </html>

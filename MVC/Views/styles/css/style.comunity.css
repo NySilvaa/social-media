@@ -1,9 +1,202 @@
+aside.aside_mobile{z-index: 9999999;}
+
+.box_alert{
+  display: inline-block;
+  border-radius: 5px;
+  padding: 20px;
+  position: absolute;
+  right: 20px; top: 10px;
+  z-index: 999;
+  min-width: 370px;
+
+  h4{
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+  }
+
+  p{
+      font-size: 0.9rem;
+      text-align: justify;
+      color: #303030;
+      font-weight: 500;
+  }
+}
+
+.box_alert.success{
+  background-color: rgb(147, 224, 147);
+  border-left: 6px solid rgb(19, 95, 19);
+
+  h4{color: rgb(13, 94, 13);}
+  p{color: rgb(11, 59, 11);}
+}
+
+.box_alert.error{
+  background-color: rgb(224, 147, 147);
+  border-left: 6px solid rgb(95, 19, 19);
+
+  h4{color: rgb(94, 13, 13);}
+  p{color: rgb(59, 11, 11);}
+}
+
+/***** LOADER *****/
+.loading_box{
+    z-index: 99999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 0; top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb( 30 30 30 / 0.45);
+}
+
+.loading_box.loading{display: flex;}
+
+.loader {
+    width: 103m;
+    height: 10em;
+  }
+  
+  .loader__eye1,
+    .loader__eye2,
+    .loader__mouth1,
+    .loader__mouth2 {
+    animation: eye1 3s ease-in-out infinite;
+  }
+  
+  .loader__eye1,.loader__eye2 {transform-origin: 64px 64px;}
+  
+  .loader__eye2 {animation-name: eye2;}
+  
+  .loader__mouth1 {animation-name: mouth1;}
+  
+  .loader__mouth2 {
+    animation-name: mouth2;
+    visibility: hidden;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: hsl(var(--hue), 90%, 10%);
+      --fg: hsl(var(--hue), 90%, 90%);
+    }
+  }
+  
+  @keyframes eye1 {
+    from {
+      transform: rotate(-260deg) translate(0, -56px);
+    }
+  
+    50%,
+      60% {
+      animation-timing-function: cubic-bezier(0.17, 0, 0.58, 1);
+      transform: rotate(-40deg) translate(0, -56px) scale(1);
+    }
+  
+    to {
+      transform: rotate(225deg) translate(0, -56px) scale(0.35);
+    }
+  }
+  
+  @keyframes eye2 {
+    from {
+      transform: rotate(-260deg) translate(0, -56px);
+    }
+  
+    50% {
+      transform: rotate(40deg) translate(0, -56px) rotate(-40deg) scale(1);
+    }
+  
+    52.5% {
+      transform: rotate(40deg) translate(0, -56px) rotate(-40deg) scale(1, 0);
+    }
+  
+    55%,
+      70% {
+      animation-timing-function: cubic-bezier(0, 0, 0.28, 1);
+      transform: rotate(40deg) translate(0, -56px) rotate(-40deg) scale(1);
+    }
+  
+    to {
+      transform: rotate(150deg) translate(0, -56px) scale(0.4);
+    }
+  }
+  
+  @keyframes eyeBlink {
+    from,
+      25%,
+      75%,
+      to {
+      transform: scaleY(1);
+    }
+  
+    50% {
+      transform: scaleY(0);
+    }
+  }
+  
+  @keyframes mouth1 {
+    from {
+      animation-timing-function: ease-in;
+      stroke-dasharray: 0 351.86;
+      stroke-dashoffset: 0;
+    }
+  
+    25% {
+      animation-timing-function: ease-out;
+      stroke-dasharray: 175.93 351.86;
+      stroke-dashoffset: 0;
+    }
+  
+    50% {
+      animation-timing-function: steps(1, start);
+      stroke-dasharray: 175.93 351.86;
+      stroke-dashoffset: -175.93;
+      visibility: visible;
+    }
+  
+    75%,
+      to {
+      visibility: hidden;
+    }
+  }
+  
+  @keyframes mouth2 {
+    from {
+      animation-timing-function: steps(1, end);
+      visibility: hidden;
+    }
+  
+    50% {
+      animation-timing-function: ease-in-out;
+      visibility: visible;
+      stroke-dashoffset: 0;
+    }
+  
+    to {
+      stroke-dashoffset: -351.86;
+    }
+  }  
+
+/****** FIM DO LOADER ******/
+section{padding: 20px 2%;}
+
 .friends_request{
     display: flex;
     gap: 20px;
+    width: 100%;
+    overflow: auto;
 }
 
-.friends_wp{padding-top: 70px;}
+.friends_request_wp{
+  width: 200%;
+  display: flex;
+  gap: 20px;
+}
+
+.friends_wp{padding-top: 30px;}
 
 .friends_wp h2{
     color: #92638b;
@@ -12,22 +205,82 @@
     letter-spacing: 1px;
 }
 
-.friends_box{
-    background-color: #e0e0e0;
-    padding: 10px 15px;
-    border-radius: 10px;
-    box-shadow: 3px 4px 12px rgba(148, 148, 148, 0.671);
+.card{
+  position: relative;
+  width: 260px;
+  min-height: 460px;
+  border-radius: 14px;
+  z-index: 1111;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
 }
 
-.friends_box figure{
+.bg {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 250px;
+  min-height: 450px;
+  z-index: 2;
+  background: rgba(255, 255, 255, .95);
+  backdrop-filter: blur(24px);
+  border-radius: 10px;
+  overflow: hidden;
+  outline: 2px solid white;
+  padding-top: 10px;
+}
+
+.blob {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #794b72;
+  opacity: 1;
+  filter: blur(12px);
+  animation: blob-bounce 5s infinite ease;
+}
+
+@keyframes blob-bounce {
+  0% {
+    transform: translate(-100%, -100%) translate3d(0, 0, 0);
+  }
+
+  25% {
+    transform: translate(-100%, -100%) translate3d(100%, 0, 0);
+  }
+
+  50% {
+    transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
+  }
+
+  75% {
+    transform: translate(-100%, -100%) translate3d(0, 100%, 0);
+  }
+
+  100% {
+    transform: translate(-100%, -100%) translate3d(0, 0, 0);
+  }
+}
+
+.card .bg figure{
     width: 80%;
     padding-top: 80%;
     background-color: #353535;
     margin:0 auto 15px auto;
 }
 
+.box_info{padding: 15px;}
+
 .box_info h3{
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     color: #1f1e1e;
     letter-spacing: 1px;
     margin-bottom: 5px;
@@ -60,30 +313,65 @@
     top: 3px;
 }
 
-.friends_box .actions{
+.bg .actions{
     margin-top: 20px;
-}
-
-.friends_box .actions a{
-    display: block;
-    padding: 6px 13px;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    border-radius: 3px;
-    margin-bottom: 8px;
-    color: #fff;
     text-align: center;
-    transition: 0.4s;
 }
 
-.friends_box .actions a > i{vertical-align: middle; font-size: 1.1rem;}
+.actions .btn_user {
+  display: inline-block;
+  border: none;
+  color: #fff;
+  border-radius: 20px;
+  background-size: 100% auto;
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.6em 1.5em;
+  margin-bottom: 10px;
+ }
+ 
+ .btn_user:hover {
+  background-position: right center;
+  background-size: 200% auto;
+  -webkit-animation: pulse 2s infinite;
+  animation: pulse512 1.5s infinite;
+ }
 
-.friends_box .actions a.aceite{background-color: rgb(20, 180, 20)}
-.friends_box .actions a.recuse{background-color: rgb(180, 25, 20);}
-.friends_box .actions a.send{background-color: #92638b;}
-.friends_box .actions a.perfil{border: 2px solid #754d6f; color: #794b72;}
+ .btn_user.aceite{background-image: linear-gradient(30deg, #13a000, #95fd3f);}
+ .btn_user.recuse{background-image: linear-gradient(30deg, #a00000, #f83c3c);}
+ .btn_user.send_user{background-image: linear-gradient(30deg, #6e2764, #eb47d2);}
 
-.friends_box .actions a.aceite:hover{background-color: rgb(17, 150, 17)}
-.friends_box .actions a.recuse:hover{background-color: rgb(133, 20, 17);}
-.friends_box .actions a.send:hover{background-color: #663c60;}
-.friends_box .actions a.perfil:hover{background-color:  #92638b; color: #fff;}
+ .btn_user.seeProfile{
+  color: #794b72;
+  border: 2px solid #794b72;
+ }
+
+ .btn_user i{
+  font-size: 1.1rem;
+  margin-left: 4px;
+  vertical-align: middle;
+ }
+
+ .btn_user svg{
+  width: 1.1rem;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+ }
+ 
+ @keyframes pulse512 {
+  0% {
+   box-shadow: 0 0 0 0 #05bada66;
+  }
+ 
+  70% {
+   box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+  }
+ 
+  100% {
+   box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+  }
+ }
+

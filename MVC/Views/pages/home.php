@@ -1,6 +1,8 @@
 <?php
     use \MVC\Controllers\HomeController;
+    use \MVC\Models\UsuariosModel;
     use \MVC\Cache;
+    use \MVC\Tools;
 
     $homeController = new HomeController;
     $homeController->logoff();
@@ -22,6 +24,8 @@
     <?php
            Cache::validateCache('aside');
     ?>  
+
+    <div class="btn_chat" id="btn_chat"><i class="bx bx-message-rounded txt_white"></i></div>
     <main id="main">
     <?php
             Cache::validateCache('header');
@@ -97,7 +101,7 @@
                 </div><!-- /.publi -->
             </div><!-- /.events -->
 
-            <div class="interations box_feed">
+            <div class="interations box_feed" id="interationsSection">
                 <div class="box groups">
                     <div class="title_interations">
                         <h3 class="txt_title">Groups</h3>
@@ -133,53 +137,25 @@
                         <a href="#" align_box><i class='bx bx-dots-horizontal-rounded'></i></a>
                     </div>
 
-                    <div class="user">
-                        <figure class="align_box">
-                            <div class="img_profile"></div>
-                        </figure>
-                        <div class="box_user_actions align_box">
-                            <p class="name"><a href="#">Nome 1</a></p>
-                            <a href="#" class="btn aceite">Aceitar <i class="bx bx-check"></i></a>
-                            <a href="#" class="btn recuse">Recusar <i class="bx bx-x"></i></a>
-                            <a href="#" class="response">Responder</a>
-                        </div><!-- /.box_user_actions align_box -->
-                    </div><!--users-->
+                    <?php
+                        foreach (UsuariosModel::requestWaiting($_SESSION['id']) as $key => $value) {
+                            $usersRequesting = UsuariosModel::listRequest($value['Id'])[0];
+
+                    ?>
 
                     <div class="user">
                         <figure class="align_box">
                             <div class="img_profile"></div>
                         </figure>
                         <div class="box_user_actions align_box">
-                            <p class="name"><a href="#">Nome 1</a></p>
-                            <a href="#" class="btn aceite">Aceitar <i class="bx bx-check"></i></a>
-                            <a href="#" class="btn recuse">Recusar <i class="bx bx-x"></i></a>
-                            <a href="#" class="response">Responder</a>
+                            <p class="name" style="max-width: 200px;"><a href="#"><?php echo $usersRequesting; ?></a></p>
+                            <a href="?aceitar=<?php echo Tools::getToken($value['Id'])?>" class="btn aceite">Aceitar <i class="bx bx-check"></i></a>
+                            <a href="?recusar=<?php echo Tools::getToken($value['Id'])?>" class="btn recuse">Recusar <i class="bx bx-x"></i></a>
+                            <a href="#" class="response">Responder</a> <!--Botão aparece somente em telas de smartphones. -->
                         </div><!-- /.box_user_actions align_box -->
                     </div><!--users-->
 
-                    <div class="user">
-                        <figure class="align_box">
-                            <div class="img_profile"></div>
-                        </figure>
-                        <div class="box_user_actions align_box">
-                            <p class="name"><a href="#">Nome 1</a></p>
-                            <a href="#" class="btn aceite">Aceitar <i class="bx bx-check"></i></a>
-                            <a href="#" class="btn recuse">Recusar <i class="bx bx-x"></i></a>
-                            <a href="#" class="response">Responder</a>
-                        </div><!-- /.box_user_actions align_box -->
-                    </div><!--users-->
-
-                    <div class="user">
-                        <figure class="align_box">
-                            <div class="img_profile"></div>
-                        </figure>
-                        <div class="box_user_actions align_box">
-                            <p class="name"><a href="#">Nome 1</a></p>
-                            <a href="#" class="btn aceite">Aceitar <i class="bx bx-check"></i></a>
-                            <a href="#" class="btn recuse">Recusar <i class="bx bx-x"></i></a>
-                            <a href="#" class="response">Responder</a>
-                        </div><!-- /.box_user_actions align_box -->
-                    </div><!--users-->
+                    <?php } ?>
                 </div><!--solicitações-->
 
                 <div class="box contact">
@@ -224,3 +200,11 @@
     <script src="<?php echo PATH_INTERATIONS ?>js/func.feed.js"></script>
 </body>
 </html>
+
+<?php
+    if(isset($_GET['aceitar']))
+        UsuariosModel::AceitarSolicitacao();
+    else if(isset($_GET['recusar']))
+        UsuariosModel::RecusarSolicitacao();
+
+?>

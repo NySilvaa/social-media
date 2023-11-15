@@ -2,3 +2,5 @@
  Esse foi o erro: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
 27/10/2023 16:06:04 Ocorreu um erro ao se conectar com o banco de dados! 
  Esse foi o erro: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+06/11/2023 09:37:19 Ocorreu um erro ao se conectar com o banco de dados! 
+ Esse foi o erro: SQLSTATE[HY000] [2002] Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente

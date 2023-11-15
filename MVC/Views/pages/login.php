@@ -2,6 +2,22 @@
     use \MVC\Bcrypt;
     use \MVC\Tools;
     use \MVC\MySql;
+    use \MVC\Cookie;
+
+    if(isset($_COOKIE['userToken'])){
+        // O usuário clicou anteriormente no botão "Lembrar de mim" e possui um cookie salvo
+        $check = MySql::connect()->prepare('SELECT * FROM users WHERE token = ?');
+        $check->execute([$_COOKIE['userToken']]);
+        $data = $check->fetch();
+
+        if($check->rowCount() == 1){
+            $_SESSION['login'] = uniqid();
+            $_SESSION['nome'] = $data['Nome'];
+            $_SESSION['id'] = $data['Id'];
+            header('Location: '.INCLUDE_PATH);
+            die();
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +38,7 @@
             <div class="register_wp d-flex">
                 <div class="form_register">
                     <div class="title_register">
-                        <h1 class="logo txt-orange"><i class='bx bxs-invader'></i></h1>
+                        <h1 class="logo txt-purple"><i class='bx bxs-invader'></i></h1>
                         <h2 class="txt-dark">Welcome back!</h2>
                         <p class="title_desc">Connect now and see the main events of the moment.</p>
                     </div>
@@ -51,7 +67,7 @@
                             <p>Lembrar de mim.</p>
                         </div><!-- /.form_wp -->
 
-                        <div class="form_wp w50" style="text-align: right; font-size: 0.9rem;"><a href="#" style="color: #D9965B; font-weight: 600;">Esqueci a senha.</a></div>
+                        <div class="form_wp w50" style="text-align: right; font-size: 0.9rem;"><a href="#" style="color: #865DFF; font-weight: 600;">Esqueci a senha.</a></div>
                         <!-- /.form_wp -->
 
                         <div class="form_wp">
@@ -68,7 +84,7 @@
     </section>
 
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <script src="<?php echo INCLUDE_PATH?>js/func.form.js"></script>
+    <script src="<?php echo PATH_INTERATIONS; ?>js/func.form.js"></script>
 </body>
 </html>
 
@@ -92,6 +108,8 @@
                 // Verifico se a senha que o user digitou é a mesma que está encriptografada e salva no BD.
                     $_SESSION['login'] = uniqid();
                     $_SESSION['nome'] = $data['Nome'];
+                    $_SESSION['id'] = $data['Id'];
+                    Cookie::generateCookie($_SESSION['id']);
                     header('Location: '.INCLUDE_PATH);
                     die();
              }else

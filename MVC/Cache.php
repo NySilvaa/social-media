@@ -4,7 +4,7 @@
 
     class Cache{
         public static function validateCache($component){
-            if(file_exists('cache')){
+            if(isset($_SESSION['login'])){
                 $data = json_decode(file_get_contents('cache'));
                 // Renovando o cache
                 if($data->tempo < time()){

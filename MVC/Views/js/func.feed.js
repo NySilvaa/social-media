@@ -1,9 +1,18 @@
+const loader = document.getElementById('loading_box')
+document.addEventListener('DOMContentLoaded', ()=>{
+    loader.classList.add('loading')
+})
+
+window.onload = ()=>{
+    loader.classList.remove('loading')
+}
+
 const btn = document.querySelector('.btn_menu')
 let control =  true
 
 const menuAside = ()=>{
-    const aside = document.getElementById('aside')
-    const aside_mobile = document.querySelector('.aside_mobile')
+    const aside = document.getElementById('asideDesktop')
+    const aside_mobile = document.getElementById('asideMobile')
     const main = document.getElementById('main')
 
     if(control){
@@ -43,14 +52,24 @@ btn.addEventListener('click', ()=>{
 
 if(window.innerWidth <= 850){
     menuAside()
-    const main = document.querySelector('main.active')
-    main.style.width = `calc(100% - 50px)`
+    const aside_mobile = document.getElementById('asideMobile')
+
+    let asideWidth = aside_mobile.clientWidth
+    console.log(asideWidth)
+}else{
+    const aside_mobile = document.getElementById('asideMobile')
+    aside_mobile.classList.remove('open')
 }
 
 window.addEventListener('resize', ()=>{
     setTimeout(()=>{
         if(window.innerWidth <= 850){
             changeIconHeader()
+            menuAside()
+        }else{
+            const aside_mobile = document.getElementById('asideMobile')
+            aside_mobile.classList.remove('open')
+            control = true
             menuAside()
         }
             
@@ -74,3 +93,19 @@ const BtnActive = ()=>{
 }
 
 BtnActive()
+
+const btnChat = document.getElementById('btn_chat')
+
+btnChat.addEventListener('click', ()=>{
+    const interationsSection = document.getElementById('interationsSection')
+
+    if(control){
+        interationsSection.classList.add('active')
+        btnChat.classList.add('menu_active')
+        control = false
+    }else{
+        interationsSection.classList.remove('active')
+        btnChat.classList.remove('menu_active')
+        control = true
+    }
+})
