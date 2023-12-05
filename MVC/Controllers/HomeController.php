@@ -12,6 +12,8 @@
         public function logoff(){
             if(isset($_GET['logoff'])){
                 session_destroy();
+                setcookie('userToken', null, -1,'/');
+                setcookie('time', null, -1,'/');
                 header('Location: '.INCLUDE_PATH);
                 die();
             }

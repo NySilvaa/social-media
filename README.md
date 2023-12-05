@@ -23,7 +23,7 @@ Abaixo terá um link explicando melhor sobre essa classe.
 
 
 Para o banco de dados, foi utilizado a database do MySQL que utiliza modelo relacional. 
-Foram criadas duas databases, sendo uma para guardar o registro dos usuários. Nela tinha os seguintes campos:
+Foram criadas três databases, sendo uma para guardar o registro dos usuários. Nela tinha os seguintes campos:
 
 Id (Auto incremento)
 Nome
@@ -38,6 +38,13 @@ Id (Auto incremento)
 Send
 Receive
 Status (aceita, pendente)
+
+Por fim, a terceira foi usada para o sistema de cookies da página, seus campos eram:
+
+Id (Auto incremento)
+Ip
+token
+data
 
 *Sistema de amizade*
 

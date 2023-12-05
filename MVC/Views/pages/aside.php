@@ -38,9 +38,9 @@ será mostrado o componente acima, ele será o principal. -->
         <ul class="menu_aside">
             <li><a href="#" class="txt_soft-ligth"><i class="bx bx-message-rounded txt_white"></i></a></li>
             <li><a href="#" class="txt_soft-ligth"><i class="bx bx-envelope txt_white"></i> </a></li>
-            <li><a href="#" class="txt_soft-ligth"><i class='bx bx-group txt_white'></i> </a></li>
-            <li class="active"><a href="#" class="txt_soft-ligth"><i class='bx bxs-news txt_white'></i> </a></li>
-            <li><a href="#" class="txt_soft-ligth"><i class="bx bx-user txt_white"></i></a></li>
+            <li><a href="comunity" class="txt_soft-ligth"><i class='bx bx-group txt_white'></i> </a></li>
+            <li class="active"><a href="/social-media/" class="txt_soft-ligth"><i class='bx bxs-news txt_white'></i> </a></li>
+            <li><a href="profile" class="txt_soft-ligth"><i class="bx bx-user txt_white"></i></a></li>
         </ul>
     </div><!-- /.actions -->
 

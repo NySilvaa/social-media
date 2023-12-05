@@ -1,3 +1,11 @@
+const btnCookie = document.getElementById('accept')
+
+btnCookie.addEventListener('click', (e)=>{
+    e.preventDefault()
+
+    const cookie = document.getElementById('cookieCard')
+    cookie.style.display = 'none'
+})
 
 const btn = document.getElementById('btnPass');
 const password = document.querySelector('.password');
@@ -11,6 +19,7 @@ btn.addEventListener('click', ()=>{
         open = false;
     }else{
         btn.classList.remove('bx-show');
+        
         password.setAttribute('type','password');
         btn.classList.add('bx-hide');
         open = true;
@@ -33,7 +42,6 @@ btnInfoPass.addEventListener('mouseout', ()=>infoCampo.classList.remove('active'
         {regex: /[A-Z]/, index: 3}, // Verifica se tem uma letra maiuscula na senha
         {regex: /[^A-Za-z0-9]/, index: 4} //Verifica se tem um caracter especial
     ]
-
 
 password.addEventListener('keyup', (e)=>{
 

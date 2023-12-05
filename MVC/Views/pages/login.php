@@ -33,6 +33,21 @@
     <title>Sign Up</title>
 </head>
 <body>
+    <div class="tools">
+            <div class="cookie-card" id="cookieCard">
+                <span class="title">🍪 Aceita cookies?</span>
+                <p class="description">Nós usamos cookies para garantir a melhor experiência no site para você. <a href="#">Leia as nossas políticas de uso</a>. </p>
+                <div class="actions">
+                    <button class="pref">
+                        Gerenciar Cookies
+                    </button>
+                    <button class="accept" id="accept">
+                        Aceitar
+                    </button>
+                </div>
+            </div>
+        </div>
+
     <section class="registrar">
         <div class="container ">
             <div class="register_wp d-flex">
@@ -75,7 +90,7 @@
                         </div><!-- /.form_wp -->
                     </form>
 
-                    <p class="login">Ainda não possui uma conta? <a href="<?php echo INCLUDE_PATH?>registrar">Create Account</a></p>
+                    <p class="login">Ainda não possui uma conta? <a href="<?php echo INCLUDE_PATH; ?>registrar">Create Account</a></p>
                 </div><!-- /.form_register -->                
 
                 <div class="form_img"></div><!-- /.form_img -->
@@ -83,13 +98,18 @@
         </div><!--container-->
     </section>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="<?php echo PATH_INTERATIONS; ?>js/func.form.js"></script>
 </body>
 </html>
 
 <?php
-    if(isset($_POST['login'])){
+     // O usuário fez o cadastro e foi redirecionado para a página de login
+     if(isset($_SESSION['registrar']))
+        Tools::alert('success','Cadastro realizado!','Faça o login e começe a sua jornada.');
+
+     if(isset($_POST['login'])){
         // Usuário está tentando fazer o login
         $email = $_POST['email'];
         $senha = $_POST['password'];
@@ -98,8 +118,8 @@
         $check->execute([$email]);
 
         if($check->rowCount() == 0)
-        // Vejo se existe algum registro salvo no BD com esse email
             Tools::alert('error','Email Inválido.','O email inserido não existe ou não foi escrito corretamente.');
+        // É verificado se o email que foi digitado não foi cadastrado antes.
         else{
             // Aqui é verificado se existe algum registro que bate com o email e senha digitado.
             $data = $check->fetch();
@@ -109,11 +129,17 @@
                     $_SESSION['login'] = uniqid();
                     $_SESSION['nome'] = $data['Nome'];
                     $_SESSION['id'] = $data['Id'];
-                    Cookie::generateCookie($_SESSION['id']);
-                    header('Location: '.INCLUDE_PATH);
-                    die();
-             }else
+
+                    // Verifico se o usuário clicou na checkbox para salvar os dados dele em um cookie
+                    if(isset($_POST['cookie']))
+                        Cookie::generateCookie($_SESSION['id']);
+                    
+                    Tools::redirect('/social-media/');
+            }else{
                 Tools::alert('error','Usuário Inválido.','Email ou senha estão incorretos. Tente novamente.');
+                return false;
+            }              
         }
     }
+
 ?>

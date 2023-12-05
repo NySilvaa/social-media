@@ -3,17 +3,6 @@
     use \MVC\Tools;
     use \MVC\MySql;
     MySql::connect();
-
-    if(isset($_POST['acao'])){
-       $createUser = new RegistrarController();
-       
-       if($createUser->registerUser($_POST)){
-            Tools::alert('success','Cadastro realizado!','Faça o login e começe a sua jornada.');
-            header('Location: '.INCLUDE_PATH);
-            die();
-       }else
-            Tools::alert('error','Seu login falhou','Ocorreu algum erro no registro. Tente novamente mais tarde.');
-    }
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +18,22 @@
     <title>Cadastre-se agora e junte-se a nós</title>
 </head>
 <body>
+
+    <div class="tools">
+        <div class="cookie-card">
+            <span class="title">🍪 Aceita cookies?</span>
+            <p class="description">Nós usamos cookies para garantir a melhor experiência no site para você. <a href="#">Leia as nossas políticas de uso</a>. </p>
+            <div class="actions">
+                <button class="pref">
+                    Gerenciar Cookies
+                </button>
+                <button class="accept">
+                    Aceitar
+                </button>
+            </div>
+        </div>
+    </div>
+
     <section class="registrar">
         <div class="container ">
             <div class="register_wp d-flex">
@@ -100,7 +105,21 @@
             </div><!-- /.register_wp --> 
         </div>
     </section>
+    <?php
 
+    if(isset($_POST['acao'])){
+       $createUser = new RegistrarController();
+       
+       if($createUser->registerUser($_POST)){
+           $_SESSION['registrar'] = true;
+            Tools::redirect('/social-media/');
+       }else
+            Tools::alert('error','Seu login falhou','Ocorreu algum erro no registro. Tente novamente mais tarde.');
+            return false;
+    }
+    ?>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="<?php echo PATH_INTERATIONS; ?>js/func.form.js" defer></script>
 </body>

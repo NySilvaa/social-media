@@ -1,16 +1,30 @@
 const loader = document.getElementById('loading_box')
+// Os dois métodos abaixo são para o loader ser carregado enquanto o documento está carregando.
 document.addEventListener('DOMContentLoaded', ()=>{
     loader.classList.add('loading')
 })
+window.onload = ()=>{loader.classList.remove('loading')}
 
-window.onload = ()=>{
-    loader.classList.remove('loading')
+const displayFile = ()=>{
+    // Função para mostrar a imagem selecionada pelo usuário em tempo real antes dele fazer o post
+    const imagem = document.getElementById('img')
+    const container = document.getElementById('container')
+
+   const file = imagem.files[0]
+
+   if(file){
+        let objectURL = URL.createObjectURL(file)
+        const box = document.getElementById('whats_new-box')
+
+        box.style.height = '500px'
+        container.innerHTML = `<img src="${objectURL}" />`
+   }
 }
 
-const btn = document.querySelector('.btn_menu')
 let control =  true
 
 const menuAside = ()=>{
+    // Função de aparecer e esconder o menu lateral
     const aside = document.getElementById('asideDesktop')
     const aside_mobile = document.getElementById('asideMobile')
     const main = document.getElementById('main')
@@ -33,6 +47,7 @@ const menuAside = ()=>{
 }
 
 const changeIconHeader = ()=>{
+    // Quando chegar em telas menores, os ícones e mensagem do header viram apenas ícones para ocupar menos espaço.
     const notifications = document.querySelectorAll('.not_profile')
     
     notifications.forEach(element => {
@@ -45,38 +60,33 @@ const changeIconHeader = ()=>{
     });
 }
 
+const btn = document.querySelector('.btn_menu')
 btn.addEventListener('click', ()=>{
+    // Botão bars que está no header e serve para ocultar ou mostrar o menu lateral.
     menuAside()
     return false;
 })
 
-if(window.innerWidth <= 850){
-    menuAside()
-    const aside_mobile = document.getElementById('asideMobile')
-
-    let asideWidth = aside_mobile.clientWidth
-    console.log(asideWidth)
-}else{
-    const aside_mobile = document.getElementById('asideMobile')
-    aside_mobile.classList.remove('open')
-}
+let time;
 
 window.addEventListener('resize', ()=>{
-    setTimeout(()=>{
+    // Quando o user redimensionar a janela do site, vai executar a função para adaptar algumas partes do site para telas menores.
+    clearTimeout(time)
+   time = setTimeout(()=>{
         if(window.innerWidth <= 850){
             changeIconHeader()
             menuAside()
-        }else{
-            const aside_mobile = document.getElementById('asideMobile')
-            aside_mobile.classList.remove('open')
-            control = true
-            menuAside()
         }
-            
-    }, 100)
+
+        if(window.innerWidth <= 730){
+            const btnSearch = document.getElementById('btnSearch')
+            btnSearch.style.display = 'none'
+        }
+    }, 1000)
 })
 
 const BtnActive = ()=>{
+    // Função para deixar um cor diferente em algum item no menu lateral com base na página em que o usuário está
     const icons = document.querySelectorAll('ul.menu_aside li')
 
     icons.forEach(element => {
@@ -91,12 +101,12 @@ const BtnActive = ()=>{
                 element.classList.add('active')
     });
 }
-
 BtnActive()
 
 const btnChat = document.getElementById('btn_chat')
 
 btnChat.addEventListener('click', ()=>{
+    // Função para mostrar a seção de interações do usuário quando ele estiver em uma tela menor.
     const interationsSection = document.getElementById('interationsSection')
 
     if(control){

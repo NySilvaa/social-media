@@ -5,150 +5,18 @@
     font-family: 'Montserrat';
 }
 
-/***** LOADER *****/
-.loading_box{
-    z-index: 99999;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    left: 0; top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgb( 30 30 30 / 0.45);
+/******  CLASSES AUXILIARES *******/
+
+#container{position: relative; margin-top: 20px;}
+
+#container img{
+    border-radius: 4px;
+    left: 50%; 
+    transform: translateX(-50%);
+    max-width: 300px;
+    height: 360px;
 }
 
-.loading_box.loading{display: flex;}
-
-.loader {
-    width: 103m;
-    height: 10em;
-  }
-  
-  .loader__eye1,
-    .loader__eye2,
-    .loader__mouth1,
-    .loader__mouth2 {
-    animation: eye1 3s ease-in-out infinite;
-  }
-  
-  .loader__eye1,.loader__eye2 {transform-origin: 64px 64px;}
-  
-  .loader__eye2 {animation-name: eye2;}
-  
-  .loader__mouth1 {animation-name: mouth1;}
-  
-  .loader__mouth2 {
-    animation-name: mouth2;
-    visibility: hidden;
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: hsl(var(--hue), 90%, 10%);
-      --fg: hsl(var(--hue), 90%, 90%);
-    }
-  }
-  
-  @keyframes eye1 {
-    from {
-      transform: rotate(-260deg) translate(0, -56px);
-    }
-  
-    50%,
-      60% {
-      animation-timing-function: cubic-bezier(0.17, 0, 0.58, 1);
-      transform: rotate(-40deg) translate(0, -56px) scale(1);
-    }
-  
-    to {
-      transform: rotate(225deg) translate(0, -56px) scale(0.35);
-    }
-  }
-  
-  @keyframes eye2 {
-    from {
-      transform: rotate(-260deg) translate(0, -56px);
-    }
-  
-    50% {
-      transform: rotate(40deg) translate(0, -56px) rotate(-40deg) scale(1);
-    }
-  
-    52.5% {
-      transform: rotate(40deg) translate(0, -56px) rotate(-40deg) scale(1, 0);
-    }
-  
-    55%,
-      70% {
-      animation-timing-function: cubic-bezier(0, 0, 0.28, 1);
-      transform: rotate(40deg) translate(0, -56px) rotate(-40deg) scale(1);
-    }
-  
-    to {
-      transform: rotate(150deg) translate(0, -56px) scale(0.4);
-    }
-  }
-  
-  @keyframes eyeBlink {
-    from,
-      25%,
-      75%,
-      to {
-      transform: scaleY(1);
-    }
-  
-    50% {
-      transform: scaleY(0);
-    }
-  }
-  
-  @keyframes mouth1 {
-    from {
-      animation-timing-function: ease-in;
-      stroke-dasharray: 0 351.86;
-      stroke-dashoffset: 0;
-    }
-  
-    25% {
-      animation-timing-function: ease-out;
-      stroke-dasharray: 175.93 351.86;
-      stroke-dashoffset: 0;
-    }
-  
-    50% {
-      animation-timing-function: steps(1, start);
-      stroke-dasharray: 175.93 351.86;
-      stroke-dashoffset: -175.93;
-      visibility: visible;
-    }
-  
-    75%,
-      to {
-      visibility: hidden;
-    }
-  }
-  
-  @keyframes mouth2 {
-    from {
-      animation-timing-function: steps(1, end);
-      visibility: hidden;
-    }
-  
-    50% {
-      animation-timing-function: ease-in-out;
-      visibility: visible;
-      stroke-dashoffset: 0;
-    }
-  
-    to {
-      stroke-dashoffset: -351.86;
-    }
-  }  
-
-/****** FIM DO LOADER ******/
-
-/******  CLASSES AUXILIARES *******/
 
 .txt_white{color: #FFF;}
 .txt_soft-ligth{color: #eceaeae5;}
@@ -217,7 +85,7 @@ aside.active{
     overflow: hidden;
 }
 
-main.active{width: 96%;}
+main.active{width: calc(100% - 65px);}
 
 .menu_aside li.active{
     background-color: rgb(255 255 255 / 0.3);
@@ -294,6 +162,8 @@ aside .logo i{
     padding: 10px 20px;
     cursor: pointer;
 }
+
+.menu_aside li a{display: block; width: 100%;}
 
 .menu_aside a > i{font-size: 1.1rem;}
 
@@ -386,12 +256,12 @@ nav .btn_menu{
     font-size: 1.1rem;
 }
 
-.profile figure .img{
+.profile figure{
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    background-color: #747474;
 }
+
+.profile figure img{border-radius: 50%;}
 
 /****** FIM DA ESTILIZAÇÃO DO HEADER ******/
 
@@ -399,14 +269,20 @@ nav .btn_menu{
 .events{flex: 0.20;}
 .interations{flex: 0.23;}
 
-.whats_new figure >.img{
+/****** SEÇÃO DEDICADA A ESTILIZAÇÃO DO FEED ****/
+
+.whats_new figure{
     width: 30px;
     height: 30px;
-    border-radius: 50%;
-    background-color: #353535;
+    margin-top: 32px;
 }
 
-.whats_new input[type=text]{
+.whats_new form{
+    width: 92%;
+    margin-left: 7px;
+}
+
+.whats_new textarea.post_content{
     width: 75%;
     display: inline-block;
     border: 2px solid #ccc;
@@ -415,19 +291,55 @@ nav .btn_menu{
     font-size: 0.9rem;
     background: transparent;
     outline: 0;
-    padding-left: 8px;
+    padding: 8px;
     margin: 0 10px;
+    resize: none;
 }
 
-.whats_new a{
+
+.whats_new form button.btn_post {
+    border: none;
+    color: #fff;
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    background-color: #865DFF;
+   }
+   
+   .whats_new form button.btn_post:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+   }
+
+   @keyframes pulse512 {
+    0% {box-shadow: 0 0 0 0 #05bada66;}
+   
+    70% {box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);}
+   
+    100% {box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);}
+   }
+
+.whats_new .btn label{
     font-size: 1.2rem;
     margin-right: 7px;
     color: #9A8C98;
+    cursor: pointer;
 }
 
-.btn a:last-child{margin-right: 0;}
+.whats_new .btn{
+    margin: 5px;
+    text-align: center;
+}
 
-.whats_new a:hover{color: #e74ad5;}
+.btn label:last-child{margin-right: 0;}
+
+.whats_new label:hover{color: #e74ad5;}
 
 .posts > .box_feed, .user{margin-top: 20px;}
 
@@ -447,6 +359,139 @@ nav .btn_menu{
     color: #747474;
     text-align: right;
     margin-left: 5px;
+}
+
+.header_info--profile,
+ section.reactions,
+ .img_post{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header.header_info--profile{border-bottom: 0;}
+
+.user_profile_feed figure{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.user_profile_feed .info{margin-left: 10px;}
+
+.user_profile_feed .info p.name, .user_profile_feed .info a.location{
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    white-space: pre;
+}
+
+.user p.name{
+    max-width: 200px;
+    font-size: 0.9rem;
+    margin-left: 7px;
+}
+
+.user_profile_feed .info span.data_postagem{
+    color: #747474;
+    font-size: 0.9rem;
+    display: block;
+}
+
+.box_feed p.description_post{
+    font-size: 0.9rem;
+    text-align: justify;
+    color: #191825;
+    padding: 0 20px;
+}
+
+.img_post{margin-top: 10px; justify-content: center; gap: 10px;}
+
+.box_img_post.single{
+    width: 85%;
+    padding-top: 55%;
+}
+
+figure, .user_box_like,
+.box_img_post.single,
+.box_img_post.two{position: relative;}
+
+img{
+    position: absolute;
+    left: 0; top: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.box_img_post img{border-radius: 10px;}
+
+.box_img_post.two{
+    width: 49%;
+    padding-top: 47%;
+}
+
+section.reactions{
+    margin-top: 15px;
+    padding: 15px 0;
+    border-bottom: 2px solid #bbb;
+    border-top: 2px solid #bbb;
+}
+
+.users_likes .user_box_like{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #353535;
+}
+
+.users_likes a.like_count{
+    font-size: 0.89rem;
+    color: #5e5e5e;
+    margin-left: 5px;
+}
+
+.box_reactions a{
+    font-size: 0.9rem;
+    color: #353535;
+    padding: 4px;
+    border-radius: 6px;
+}
+
+.box_reactions a > i{font-size: 1rem;}
+
+.box_reactions a:hover{background-color: #69696913;}
+
+section.comments{margin-top: 30px;}
+
+.comment_highlight header figure{
+    width: 32px;
+    height: 32px;
+}
+
+.comment_highlight{margin-top: 20px;}
+
+.comment_highlight p.coment_user{
+    font-size: 0.89rem;
+    text-align: justify;
+    padding: 0 20px;
+    color: #353535;
+    display: block;
+}
+
+.comment_highlight a.like_comment{color: #f00;}
+
+.comment_highlight a.view-more{
+    display: block;
+    font-size: 0.9rem;
+    color: #865DFF;
+    margin: 6px 0 15px 20px;
+}
+
+.comment_highlight a.see-all_coments{
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #865DFF;
 }
 
 /******* FIM DA ESTILIZAÇÃO DA SEÇÃO PRINCIPAL DO FEED *****/
@@ -473,14 +518,15 @@ nav .btn_menu{
 
 .events .upcoming, .publi{margin-bottom: 20px;}
 
-.publi figure{width: 100%;}
+.publi figure{
+    margin: 15px auto ;
+    width: 90%;
+    padding-top: 90%;
+    position: relative;
+}
 
 .publi figure .img_publi{
-    width: 90%;
-    padding-top: 80%;
     border-radius: 4px;
-    background-color: #353535;
-    margin: 15px auto ;
 }
 
 .publi h3:not(h3.txt_title){
@@ -505,12 +551,12 @@ nav .btn_menu{
     justify-content: space-between;
 }
 
-.user .img_profile{
+.user figure{
     width: 35px;
     height: 35px;
-    border-radius: 50%;
-    background-color: #353535;
 }
+
+img{border-radius: 50%;}
 
 .user p, .box_user_actions p a{
     font-size: 1rem;
@@ -530,6 +576,8 @@ nav .btn_menu{
 
 .solicitations, .contact{margin-top: 40px;}
 
+.box_user_actions, .box_user_actions a.btn{display: inline-block;}
+
 .box_user_actions{margin-left: 7px;}
 
 .box_user_actions a.btn{
@@ -537,23 +585,17 @@ nav .btn_menu{
     text-align: center;
     color: #FFF;
     font-size: 0.9rem;
-    display: inline-block;
     padding: 2px 5px;
 }
 
 .box_user_actions a.btn.aceite{background-color: rgb(20, 180, 20);}
-
 .box_user_actions a.btn.recuse{background-color: rgb(180, 25, 20);}
 
-.box_user_actions{display: inline-block;}
-
-.contact .user p a{margin-left: 7px; color: #353535;}
+.contact .user p a{color: #353535;}
 
 /***** MEDIAS QUERIES ******/
 
 @media (max-width: 1423px){
-    .whats_new input[type=text]{width: 65%;}
-
     .feed_main .title a{
         margin-top: 5px;
         font-size: 1.3rem;
@@ -569,15 +611,10 @@ nav .btn_menu{
 }
 
 @media (max-width: 1138px){
-    .whats_new input[type=text]{
-        width: 80%;
-    }
-
-    .whats_new .btn {
-        margin: 10px auto 0 auto;
-        display: block;
-        text-align: center;
-    }
+    .whats_new form{width: 85%; text-align: center;}
+    .whats_new form button.btn_post{margin: 10px;}
+    .whats_new figure{margin-top: 0; top: -10px;}
+    .whats_new form textarea.post_content,.whats_new form button.btn_post{width: 100%;}
 
     .user figure .img_profile{width: 30px; height: 30px;}
     .user .box_user_actions p{font-size: 0.9rem;}
