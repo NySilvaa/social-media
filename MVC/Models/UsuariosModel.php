@@ -7,7 +7,7 @@ use \MVC\Tools;
 
 class UsuariosModel{
     public static function sendSolicitation($tokenUser){
-        if (self::checkStatusSolicitation($tokenUser)) {
+        if (self::checkStatusSolicitation($tokenUser) === 'pendente') {
             // O usuário já enviou/recebeu uma solicitação antes. Por isso, não pode enviar novamente
             Tools::alert('error', 'Solicitação Pendente', 'Já existe um pedido de amizade entre você e essa pessoa.');
             return false;
