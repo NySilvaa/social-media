@@ -21,7 +21,7 @@
                         Tools::alert('success', 'Post Enviado', 'Seu conteúdo foi postado com sucesso.');
                     }else{
                         // Algo falhou na hora de postar
-                        Tools::alert('error', 'Post não Enviado', 'Algo falhou na sua postagem. Tente novamente mais tarder');
+                        Tools::alert('error', 'Post não Enviado', 'Algo falhou na sua postagem. Tente novamente mais tarde');
                         return false;
                     }
                }else{
