@@ -92,8 +92,28 @@ section{padding: 20px 2%;}
     width: 80%;
     padding-top: 80%;
     position: relative;
-    margin:0 auto 15px auto;
+    margin-bottom: 15px;
 }
+
+.card .bg figure.withoutImg{
+    font-size: 6rem;
+    text-align: center;
+    width: 90%;
+    padding-top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #353535;
+    color: #fff;
+    border-radius: 4px;
+    z-index: 999999;
+}
+
+.card .bg figure.withoutImg > i{
+  position: relative;
+  top: -40px;
+}
+
+.friends_request .card .bg figure{left: 50%; transform: translateX(-50%);}
 
 .card .bg figure img{
   position: absolute;

@@ -29,15 +29,15 @@ class UsuariosModel{
         // Método para verificar se existe algum pedido de amizade entre os usuários
         $Metoken = Tools::getToken($_SESSION['id']);
         $sql = MySql::connect()->prepare("SELECT * FROM `solicitacoes_de_amizade` 
-                WHERE (`send` = ? AND `receive` = ?) OR (`receive` = ? AND `send` = ?)");
+        WHERE (`send` = ? AND `receive` = ?) OR (`receive` = ? AND `send` = ?)");
         $sql->execute([$Metoken, $tokenUser, $Metoken, $tokenUser]);
 
-        return ($sql->rowCount() == 1) ? true : false;
+        return ($sql->rowCount() == 1) ? $sql->fetch(MySql::connect()::FETCH_ASSOC)['status'] : 's/ conexões';
     }
 
-    public static function requestWaiting($id){
+    public static function requestWaiting($token){
         $users = MySql::connect()->prepare("SELECT * FROM `solicitacoes_de_amizade` WHERE `receive` = ? AND status = ?");
-        $users->execute([$id, 'pendente']);
+        $users->execute([$token, 'pendente']);
         return $users->fetchAll(MySql::connect()::FETCH_ASSOC);
     }
 
@@ -112,29 +112,11 @@ class UsuariosModel{
         /* Nesse método será requisitado do banco de dados todas as amizades que o usuário tem que foram aceitas, e como não será printado o valor 
         da sessão dele. Nos foreach() que forem executados nas páginas, a lógica será basicamente essa:
             foreach(...){
-                if(Quem enviou fui eu?){Se sim, então vou pegar o Id de quem recebeu.}
+                if(Quem enviou fui eu?){Se sim, então vou pegar o token de quem recebeu.}
                 
-                else if(Agora, quem recebeu fui eu?){Se sim, então vou pegar o Id de quem enviou}
+                else if(Agora, quem recebeu fui eu?){Se sim, então vou pegar o token de quem enviou}
             }
         */
     }
 
-    public static function showFriends($valor){
-        echo '<div class="card">
-                        <div class="bg">
-                            <figure>
-                                <img src="https://www.b2b-infos.com/wp-content/uploads/photo-de-profil-pro-682x1024.jpg" class="img_friend"></img>
-                            </figure>
-
-                            <div class="box_info">
-                                <h3>'.$valor.'</h3>
-                                    <p>Possui amizade com: <span class="amigos_comum"></span><span class="amigos_comum"></span></p>
-                                <div class="actions">
-                                <a href="#" class="btn_user send_user" >Ver Perfil <i class="bx bx-user"></i></a>
-                                </div><!--actions-->
-                            </div><!-- /.box_info -->
-                        </div><!--bg-->
-                        <div class="blob"></div>
-                    </div><!--card--> ';
-    }
 }

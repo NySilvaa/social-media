@@ -29,7 +29,9 @@
     <meta name="description" content="Rede social para fins de testes">
     <meta name="author" content="Nycolas Ramos da Silva">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" href="<?php echo PATH_INTERATIONS; ?>assets/icon-login.png" type="image/x-icon">
     <link rel="stylesheet" href="<?php echo PATH_INTERATIONS ?>styles/css/style.registrar.min.css">
+    <link rel="stylesheet" href="<?php echo PATH_INTERATIONS ?>styles/css/style.tools.css">
     <title>Sign Up</title>
 </head>
 <body>
@@ -38,12 +40,8 @@
                 <span class="title">🍪 Aceita cookies?</span>
                 <p class="description">Nós usamos cookies para garantir a melhor experiência no site para você. <a href="#">Leia as nossas políticas de uso</a>. </p>
                 <div class="actions">
-                    <button class="pref">
-                        Gerenciar Cookies
-                    </button>
-                    <button class="accept" id="accept">
-                        Aceitar
-                    </button>
+                    <button class="pref">Gerenciar Cookies</button>
+                    <button class="accept" id="accept">Aceitar</button>
                 </div>
             </div>
         </div>
@@ -66,7 +64,7 @@
 
                         <div class="form_wp">
                             <label for="email" class="txt-dark">Email</label>
-                            <input type="text" id="email" name="email" />
+                            <input type="text" id="email" name="email" value="<?php echo recoverPost('email'); ?>"/>
                             <span><i class='bx bx-envelope'></i></span>
                         </div><!-- /.form_wp -->
                         
@@ -129,6 +127,7 @@
                     $_SESSION['login'] = uniqid();
                     $_SESSION['nome'] = $data['Nome'];
                     $_SESSION['id'] = $data['Id'];
+                    $_SESSION['img'] = $data['img_profile'];
 
                     // Verifico se o usuário clicou na checkbox para salvar os dados dele em um cookie
                     if(isset($_POST['cookie']))

@@ -1,8 +1,0 @@
-Arquivo com o intuito de ser um "To Do"
-
-Verificar a optimização das páginas (Interação de arquivos e respostas)
-Criar uma forma de após o usuário selecionar a imagem, caso ele não queira postar ela, ele poder apagar da visualização em tempo real.
-Quando for fazer a validação dos post enviados, no método validatePost() no parametro $file, troque a verificação para: Se for diferente de vazio, cheque
-a extensão do arquivo enviado e execute o método correspondente (validateImg / validateAnexo, etc).
-Fazer a página de Editar Perfil
-Na seção de "Pessoas que talvez você conheça", aquela que já forem as suas amigas você pode estar removendo;

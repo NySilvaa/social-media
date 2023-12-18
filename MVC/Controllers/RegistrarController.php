@@ -34,12 +34,15 @@
                 $data[] = $value;
             }
 
-            $query.= ")";
+            $query.= ",?)";
+            $data[] = ''; // Para enviar o valor para o campo de imagem de perfil no BD
+
             if($control){
                 // Os valores passados são coerentes aqueles que são esperados. A inserção pode ser feita.
                 $sql = MySql::connect()->prepare($query);
                 $sql->execute($data);
             }
+            
             return $control;
         }
     }

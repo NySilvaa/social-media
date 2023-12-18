@@ -14,6 +14,7 @@
     <meta name="description" content="Rede social para fins de testes">
     <meta name="author" content="Nycolas Ramos da Silva">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" href="<?php echo PATH_INTERATIONS; ?>assets/icon-login.png" type="image/x-icon">
     <link rel="stylesheet" href="<?php echo PATH_INTERATIONS ?>styles/css/style.registrar.min.css">
     <title>Cadastre-se agora e junte-se a nós</title>
 </head>
@@ -21,15 +22,11 @@
 
     <div class="tools">
         <div class="cookie-card">
-            <span class="title">🍪 Aceita cookies?</span>
+            <span class="title">🍪 Aceitas cookies?</span>
             <p class="description">Nós usamos cookies para garantir a melhor experiência no site para você. <a href="#">Leia as nossas políticas de uso</a>. </p>
             <div class="actions">
-                <button class="pref">
-                    Gerenciar Cookies
-                </button>
-                <button class="accept">
-                    Aceitar
-                </button>
+                <button class="pref">Gerenciar Cookies</button>
+                <button class="accept" id="accept"> Aceitar</button>
             </div>
         </div>
     </div>
@@ -44,7 +41,7 @@
                         <p class="title_desc">Welcome in our social media, create account to start your experience.</p>
                     </div><!--title_register-->
 
-                    <form action="" method="post">
+                    <form action="" method="post" id="form">
                         <div class="social-medias d-flex">
                             <a href="http://" class="box-midia"><i class='bx bxl-google' ></i> Sign in with Google</a>
                             <a href="http://" class="box-midia"><i class='bx bxl-apple' ></i> Sign in with Apple</a>
@@ -52,13 +49,13 @@
 
                         <div class="form_wp">
                             <label for="name" class="txt-dark">Nome</label>
-                            <input type="text" id="name"  name="Nome" />
+                            <input type="text" id="name"  name="Nome" value="<?php echo recoverPost('Nome'); ?>"/>
                             <span><i class='bx bx-user'></i></span>
                         </div><!-- /.form_wp -->
 
                         <div class="form_wp">
                             <label for="email" class="txt-dark">Email</label>
-                            <input type="text" id="email" name="Email" />
+                            <input type="text" id="email" name="Email" value="<?php echo recoverPost('Email'); ?>"/>
                             <span><i class='bx bx-envelope'></i></span>
                         </div><!-- /.form_wp -->
                         
@@ -105,18 +102,18 @@
             </div><!-- /.register_wp --> 
         </div>
     </section>
-    <?php
 
-    if(isset($_POST['acao'])){
-       $createUser = new RegistrarController();
-       
-       if($createUser->registerUser($_POST)){
-           $_SESSION['registrar'] = true;
-            Tools::redirect('/social-media/');
-       }else
-            Tools::alert('error','Seu login falhou','Ocorreu algum erro no registro. Tente novamente mais tarde.');
-            return false;
-    }
+    <?php
+        if(isset($_POST['acao'])){
+            $createUser = new RegistrarController();
+        
+            if($createUser->registerUser($_POST)){
+                $_SESSION['registrar'] = true;
+                Tools::redirect('/social-media/');
+            }else
+                Tools::alert('error','Seu login falhou','Ocorreu algum erro no registro. Tente novamente mais tarde.');
+                return false;
+        }
     ?>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

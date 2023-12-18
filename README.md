@@ -5,53 +5,62 @@ Nesse projeto será feito uma rede social utilizando a linguagem PHP e implement
 Nele também terá a inclusão dinâmica de classes utilizando a dependência PSR-4 do PHP.
 
 Comando para add: composer dump-autoload
-(Para usar o método acima, deve-se ter a biblioteca do composer instalada.)
+(Para usar o método acima, deve-se ter a biblioteca do composer instalada: https://getcomposer.org/)
 
 Será usado o modelo de URLs amigáveis com os comandos do arquivo .htaccess
 
-Para estilizar será utilizado o pré-processador CSS conhecido como LESS, onde ao final do código será disponibilizado um arquivo css.min para melhorar o desempenho.
-
-Paletas de cores do site:
-#e0e0e0 (background do site)
-#EBEEF2
-#D9965B
-#595959
-#151515
-
-Para criptografia dos dados, será utilizada a classe "ByCript" onde os dados não poderão ser descriptografados, apenas comparados.
-Abaixo terá um link explicando melhor sobre essa classe.
+Para estilizar será utilizado o pré-processador CSS conhecido como LESS, onde ao final do código será disponibilizado um arquivo "min.css" para melhorar o desempenho.
 
 
-Para o banco de dados, foi utilizado a database do MySQL que utiliza modelo relacional. 
-Foram criadas três databases, sendo uma para guardar o registro dos usuários. Nela tinha os seguintes campos:
+## 🚀 Sobre mim
+Eu sou uma pessoa desenvolvedora full-stack, formado em Análise e Desenvolvimento de Sistemas. Já criei diversos projetos e estou na área de tecnologia a mais de três anos. Busco aprimorar minhas habilidades atuais e adquirir novos conhecimentos.
 
-Id (Auto incremento)
-Nome
-Email
-Password
-token
-Data_registro
 
-Já a segunda tabela foi usada para as solicitações de amizade, seus campos eram:
+## 🔗 Links
 
-Id (Auto incremento)
-Send
-Receive
-Status (aceita, pendente)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/nycolas-ramos-da-silva-685a68284/)
 
-Por fim, a terceira foi usada para o sistema de cookies da página, seus campos eram:
+[![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/docs.php)
 
-Id (Auto incremento)
-Ip
-token
-data
+[![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
-*Sistema de amizade*
+[![JQUERY](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white)](https://api.jquery.com/)
 
-Para o sistema de aceitar ou recusar a solicitação de amizade será utilizado a coluna "token" da primeira tabela.
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 
-Basicamente, cada card contendo as informações sobre o usuário que mandou o pedido, terá dois botões de links (aceitar e recusar), ambos terão como valor passado no attr "href" a ação em forma de query ("?aceitar" ou "?recusar" o pedido)e o seu token, que será um identificador único de cada usuário. Isso porque, independente de qual seja a ação requisitada (aceitar ou recusar o pedido) será recuperado essa ação na query que vai estar na URL e o token do usuário, e será por meio dele que  será feita a exclusão ou a confirmação do pedido de amizade.
+[![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)](https://dev.mysql.com/doc/)
 
-A escolha de criar uma coluna com um identificador único (token) mesmo já tendo uma coluna chamada "Id" foi para evitar do usuário ficar mudando o valor na URL e ficar espamando pedidos de amizades, e mesmo que ele faça isso com o valor do token, será difícil acertar a combinação de um usuário cadastrado.
+[![GIT](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=whit)](https://git-scm.com/doc)
 
-Agora, para enviar o pedido, o sistema foi um pouco diferente, basicamente terá um input do tipo hidden que armazenará o Id do usuário, ao clicar em "Enviar solicitação", o Id será enviado via POST e recuperado pelo PHP, depois é só pegar o Id desse usuário e enviar para a tabela de solicitações.
+
+## 🛠 Habilidades
+Javascript, HTML5, CSS3, PHP, GIT e GITHUB, LESS, MYSQL, JQUERY, Arquitetura MVC, Composer PHP, Orientação a Objeto, Herança de Classes, entre outras.
+
+
+## Funcionalidades
+
+- Criptografia de Dados
+- Interação com os usuários em tempo real
+- Validação de dados dos formulários
+- Métodos GET e POST
+- Requisições AJAX
+- Orientação a Objetos
+- URLs Amigáveis
+- Composer PHP
+- Linguagens SQL
+- Postagem com Imagens, Vídeos, Arquivos e músicas
+- Design Responsivo
+- Pré-processador LESS
+- Sessões e Cookies
+
+
+## Autores
+
+- [@NySilvaa](https://github.com/NySilvaa/)
+
+
+## Referência
+
+ - [Inspiração para as páginas](https://dribbble.com/)
+ - [Inspiração para cores e estilos](https://uiverse.io/)
+ - [Construção do ReadMe](https://readme.so/pt/editor)

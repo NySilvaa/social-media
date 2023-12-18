@@ -6,7 +6,7 @@ if (!isset($_SESSION['login'])) {
 
 use \MVC\Controllers\HomeController;
 use \MVC\Models\UsuariosModel;
-use \MVC\Cache;
+use \MVC\Views\MainView;
 use MVC\Tools;
 
 $homeController = new HomeController;
@@ -28,7 +28,8 @@ $date = DateTime::createFromFormat('Y-m-d', $users['date_registro']);
     <meta name="keywords" content="feed,social media,home, content">
     <meta name="author" content="Nycolas Ramos da Silva">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="<?php echo PATH_INTERATIONS ?>styles/css/style.home.css">
+    <link rel="shortcut icon" href="<?php echo PATH_INTERATIONS; ?>assets/midia-social.png" type="image/x-icon">
+    <link rel="stylesheet" href="<?php echo PATH_INTERATIONS ?>styles/css/style.home.min.css">
     <link rel="stylesheet" href="<?php echo PATH_INTERATIONS ?>styles/css/style.profile.css">
     <link rel="stylesheet" href="<?php echo PATH_INTERATIONS ?>styles/css/style.tools.css">
     <title>Editar Perfil | <?php echo explode(" ", $_SESSION['nome'])[0] ?></title>
@@ -36,17 +37,21 @@ $date = DateTime::createFromFormat('Y-m-d', $users['date_registro']);
 
 <body>
     <?php
-    Cache::validateCache('aside')
+    MainView::render('aside');
     ?>
 
     <main id="main">
-        <?php Cache::validateCache('header') ?>
+        <?php MainView::render('header'); ?>
 
         <section class="profile_main">
             <div class="profile_info ">
                 <figure class="align_box">
                     <div class="img_profile">
-                        <img src="https://th.bing.com/th/id/OIP.EVCGXvrjsvMrhfOX3su_FgHaHa?rs=1&pid=ImgDetMain" alt="" srcset="">
+                        <?php if($_SESSION['img'] === ''){?>
+                                    <i class="bx bx-user avatar"></i>
+                            <?php }else{ ?>
+                                <img src="<?php echo PATH_INTERATIONS.'img_profile/'.$_SESSION['img'] ?>" alt="" srcset="">
+                            <?php } ?>
                     </div>
                 </figure>
                 <div class="box_user_info align_box">
@@ -92,7 +97,11 @@ $date = DateTime::createFromFormat('Y-m-d', $users['date_registro']);
             <div class="destaque_user box">
                 <figure class="align_box">
                     <div class="img_box_destaque">
-                        <img src="https://th.bing.com/th/id/OIP.EVCGXvrjsvMrhfOX3su_FgHaHa?rs=1&pid=ImgDetMain" alt="" srcset="">
+                            <?php if($_SESSION['img'] === ''){?>
+                                    <i class="bx bx-user avatar"></i>
+                            <?php }else{ ?>
+                                <img src="<?php echo PATH_INTERATIONS.'img_profile/'.$_SESSION['img'] ?>" alt="" srcset="">
+                            <?php } ?>
                     </div>
                 </figure>
                 <div class="destaque_info align_box">

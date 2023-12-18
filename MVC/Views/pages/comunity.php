@@ -1,27 +1,25 @@
 <?php
+    use \MVC\Controllers\HomeController;
+    use \MVC\Views\MainView;
+    use \MVC\Models\UsuariosModel;
+    use  \MVC\MySql;
+    use MVC\Tools;
 
-use \MVC\Controllers\HomeController;
-use \MVC\Cache;
-use \MVC\Models\UsuariosModel;
-use  \MVC\MySql;
-use MVC\Tools;
+    if (!isset($_SESSION['login'])) {
+        header('Location:' . INCLUDE_PATH);
+        die();
+    }
 
-if (!isset($_SESSION['login'])) {
-    header('Location:' . INCLUDE_PATH);
-    die();
-}
+    $user = MySql::connect()->prepare('SELECT * FROM users');
+    $user->execute();
+    $user = $user->fetchAll(MySql::connect()::FETCH_ASSOC);
 
-$user = MySql::connect()->prepare('SELECT * FROM users');
-$user->execute();
-$user = $user->fetchAll(MySql::connect()::FETCH_ASSOC);
-
-$homeController = new HomeController;
-$homeController->logoff();
+    $homeController = new HomeController;
+    $homeController->logoff();
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -29,19 +27,17 @@ $homeController->logoff();
     <meta name="keywords" content="feed,social media,home, content">
     <meta name="author" content="Nycolas Ramos da Silva">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="<?php echo PATH_INTERATIONS ?>styles/css/style.home.css">
+    <link rel="shortcut icon" href="<?php echo PATH_INTERATIONS; ?>assets/midia-social.png" type="image/x-icon">
+    <link rel="stylesheet" href="<?php echo PATH_INTERATIONS ?>styles/css/style.home.min.css">
     <link rel="stylesheet" href="<?php echo PATH_INTERATIONS ?>styles/css/style.comunity.css">
     <link rel="stylesheet" href="<?php echo PATH_INTERATIONS ?>styles/css/style.tools.css">
     <title>Comunidade</title>
 </head>
-
 <body>
-    <?php Cache::validateCache('aside') ?>
+    <?php MainView::render('aside'); ?>
 
     <main id="main">
-        <?php
-        Cache::validateCache('header')
-        ?>
+        <?php MainView::render('header'); ?>
 
         <section class="solicitacoes">
             <div class="friends_wp">
@@ -58,31 +54,31 @@ $homeController->logoff();
                        
                             $requestWait = UsuariosModel::requestWaiting(Tools::getToken($_SESSION['id']));
 
-                            if(count($requestWait) == 0)
+                            if(count($requestWait) === 0)
                                 echo '<p style="text-align:center; width: 100%;">Sem solicitações pendentes no momento. ;)</p>';
-        
-                            foreach ($requestWait as $value) {
-                                $usersRequesting = UsuariosModel::listRequest($value['send']); ?>
+                            else{
+                                foreach ($requestWait as $value) {
+                                    $usersRequesting = UsuariosModel::listRequest($value['send']); ?>
 
-                            <div class="card">
-                                <div class="bg">
-                                    <figure>
-                                        <img src="https://www.b2b-infos.com/wp-content/uploads/photo-de-profil-pro-682x1024.jpg" class="img_friend"></img>
-                                    </figure>
-                                    <div class="box_info">
-                                        <h3><?php echo $usersRequesting['Nome'] ?></h3>
-                                        <p>Possui amizade com: <span class="amigos_comum"></span><span class="amigos_comum"></span></p>
-                                        <div class="actions">
-                                                <a href="?aceitar=<?php echo $value['send']; ?>"  class="btn_user aceite">Aceitar Solicitação<i class="bx bx-check"></i></a>
-                                                <a href="?recusar=<?php echo $value['send']; ?>" class="btn_user recuse">Recusar Solicitação <i class="bx bx-x"></i></a>
-                                            <a href="#" class="btn_user seeProfile"> Ver perfil<i class="bx bx-user"></i></a>
+                                    <div class="card">
+                                        <div class="bg">
+                                            <figure>
+                                                <img src="https://www.b2b-infos.com/wp-content/uploads/photo-de-profil-pro-682x1024.jpg" class="img_friend"></img>
+                                            </figure>
+                                            <div class="box_info">
+                                                <h3><?php echo $usersRequesting['Nome'] ?></h3>
+                                                <p>Possui amizade com: <span class="amigos_comum"></span><span class="amigos_comum"></span></p>
+                                                <div class="actions">
+                                                        <a href="?aceitar=<?php echo $value['send']; ?>"  class="btn_user aceite">Aceitar Solicitação<i class="bx bx-check"></i></a>
+                                                        <a href="?recusar=<?php echo $value['send']; ?>" class="btn_user recuse">Recusar Solicitação <i class="bx bx-x"></i></a>
+                                                    <a href="#" class="btn_user seeProfile"> Ver perfil<i class="bx bx-user"></i></a>
+                                                </div>
+                                            </div><!-- /.box_info -->
                                         </div>
-                                    </div><!-- /.box_info -->
-                                </div>
-                                <div class="blob"></div>
-                            </div><!--card-->
+                                        <div class="blob"></div>
+                                    </div><!--card-->
                        
-                       <?php } // Fechamento do foreach() ?>
+                       <?php }}  // Fechamento do foreach() ?>
                     </div><!-- /.friends_request_wp -->
                 </div><!-- /.friends_request -->
             </div><!-- /.friends_wp -->
@@ -100,14 +96,47 @@ $homeController->logoff();
 
                             foreach ($friends as $value) {
                                 if ($value['send'] == $meToken) {
-                                    $friend = UsuariosModel::listRequest($value['receive']);
-                                    UsuariosModel::showFriends($friend['Nome']);
-                                } else if ($value['receive'] == $meToken) {
-                                    $friend = UsuariosModel::listRequest($value['send']);
-                                    UsuariosModel::showFriends($friend['Nome']);
-                                }
-                            } // Fechando o foreach() 
-                        ?>
+                                    $friend = UsuariosModel::listRequest($value['receive']); ?>
+                                    <div class="card">
+                                        <div class="bg">
+                                            <?php if(!isset($value['img_profile']) || $value['img_profile'] === ''){ ?>
+                                                            <figure class="align_box withoutImg"><i class="bx bx-user"></i></figure>
+                                                    <?php }else{ ?>                                    
+                                                        <figure class="align_box"><img src="<?php echo PATH_INTERATIONS.'img_profile/'.$value['img_profile']; ?>" class="align_box img_profile"></img></figure>
+                                            <?php } ?>
+
+                                            <div class="box_info">
+                                                <h3><?php echo $friend['Nome']; ?></h3>
+                                                    <p>Possui amizade com: <span class="amigos_comum"></span><span class="amigos_comum"></span></p>
+                                                <div class="actions">
+                                                <a href="#" class="btn_user send_user" >Ver Perfil <i class="bx bx-user"></i></a>
+                                                </div><!--actions-->
+                                            </div><!-- /.box_info -->
+                                        </div><!--bg-->
+                                        <div class="blob"></div>
+                                    </div><!--card--> ';
+                               <?php } else if ($value['receive'] == $meToken) {
+                                    $friend = UsuariosModel::listRequest($value['send']); ?>
+                                    <div class="card">
+                                        <div class="bg">
+                                            <?php if(!isset($value['img_profile']) || $value['img_profile'] === ''){ ?>
+                                                            <figure class="align_box withoutImg"><i class="bx bx-user"></i></figure>
+                                                    <?php }else{ ?>                                    
+                                                        <figure class="align_box"><img src="<?php echo PATH_INTERATIONS.'img_profile/'.$value['img_profile']; ?>" class="align_box img_profile"></img></figure>
+                                                    <?php } ?>
+
+                                            <div class="box_info">
+                                                <h3><?php echo $friend['Nome']; ?></h3>
+                                                    <p>Possui amizade com: <span class="amigos_comum"></span><span class="amigos_comum"></span></p>
+                                                <div class="actions">
+                                                <a href="#" class="btn_user send_user" >Ver Perfil <i class="bx bx-user"></i></a>
+                                                </div><!--actions-->
+                                            </div><!-- /.box_info -->
+                                        </div><!--bg-->
+                                        <div class="blob"></div>
+                                    </div><!--card--> ';
+                               <?php }
+                            } // Fechando o foreach() ?>
                     </div><!-- /.friends_request_wp -->
                 </div><!-- /.friends_request -->
             </div><!-- /.friends_wp -->
@@ -120,23 +149,24 @@ $homeController->logoff();
                 <div class="friends_request">
                     <div class="friends_request_wp">
                         <?php
-                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                            if (isset($_POST['idUser'])) {
-                                $idUser = $_POST['idUser'];
-                                UsuariosModel::sendSolicitation($idUser);
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                                if (isset($_POST['idUser'])) {
+                                    $idUser = $_POST['idUser'];
+                                    UsuariosModel::sendSolicitation($idUser);
+                                }
                             }
-                        }
 
-                        foreach ($user as $key => $value) {
-
-                            if ($value['Id'] == $_SESSION['id'])
-                                continue;
-                        ?>
+                            foreach ($user as $key => $value) {
+                                if (($value['Id'] == $_SESSION['id']) || (UsuariosModel::checkStatusSolicitation($value['token']) == 'aceita'))
+                                    continue;
+                            ?>
                             <div class="card">
                                 <div class="bg">
-                                    <figure>
-                                        <img src="https://www.b2b-infos.com/wp-content/uploads/photo-de-profil-pro-682x1024.jpg" class="img_friend"></img>
-                                    </figure>
+                                    <?php if(!isset($value['img_profile']) || $value['img_profile'] === ''){ ?>
+                                            <figure class="align_box withoutImg"><i class="bx bx-user"></i></figure>
+                                    <?php }else{ ?>                                    
+                                        <figure class="align_box"><img src="<?php echo PATH_INTERATIONS.'img_profile/'.$value['img_profile']; ?>" class="align_box img_profile"></img></figure>
+                                    <?php } ?>
 
                                     <div class="box_info">
                                         <h3><?php echo $value['Nome'] ?></h3>
@@ -146,16 +176,15 @@ $homeController->logoff();
                                                 <input type="hidden" name="idUser" value="<?php echo Tools::getToken($value['Id']); ?>">
 
                                                 <?php
-                                                if (UsuariosModel::checkStatusSolicitation(Tools::getToken($value['Id']))) {
+                                                    if(UsuariosModel::checkStatusSolicitation($value['token']) == 'pendente') {
                                                 ?>
                                                     <button type="submit" class="btn_user seeProfile">Pendente <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                         </svg>
                                                     </button>
-                                                <?php } else { ?>
+                                                <?php } else if(UsuariosModel::checkStatusSolicitation($value['token']) === 's/ conexões') { ?>
                                                     <button type="submit" class="btn_user send_user" name="enviar">Enviar Solicitação <i class="bx bx-send"></i></button>
                                                 <?php } ?>
-
                                                 <button class="btn_user seeProfile" type="submit"> Ver perfil<i class="bx bx-user"></i></button>
                                             </form>
                                         </div><!--actions-->
@@ -163,8 +192,7 @@ $homeController->logoff();
                                 </div><!--bg-->
                                 <div class="blob"></div>
                             </div><!--card-->
-                        <?php } // Fechando o foreach() 
-                        ?>
+                        <?php } // Fechando o foreach() ?>
                     </div><!-- /.friends_request_wp -->
                 </div><!-- /.friends_request -->
             </div><!-- /.friends_wp -->
@@ -175,5 +203,4 @@ $homeController->logoff();
     <script src="<?php echo PATH_INTERATIONS; ?>js/func.feed.js"></script>
     <script src="<?php echo PATH_INTERATIONS; ?>js/request.js"></script>
 </body>
-
 </html>

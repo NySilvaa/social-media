@@ -131,39 +131,53 @@
             }
         }
 
-        public static function showPostFriends(){
+        public static function showPosts(){
             $dados = [];
+            $meToken = Tools::getToken($_SESSION['id']);  // Pego o meu token de usuário
 
-           $posts = MySql::connect()->prepare("SELECT posts.*, users.Nome FROM posts INNER JOIN users ON posts.token_user = users.token"); 
-           $posts->execute();
-           $posts = $posts->fetchAll(MySql::connect()::FETCH_ASSOC);
-           $meToken = Tools::getToken($_SESSION['id']);
+            $meusPosts = MySql::connect()->prepare("SELECT posts.*, users.img_profile FROM posts INNER JOIN users
+            ON posts.token_user = users.token WHERE token_user = ?");  // Vou selecionar os meus posts
+            $meusPosts->execute([$meToken]);
+            $totalPostsMe = $meusPosts->fetchAll(MySql::connect()::FETCH_ASSOC);
 
-           $meusPosts = MySql::connect()->prepare('SELECT * FROM posts WHERE token_user = ?');
-           $meusPosts->execute([$meToken]);
-           $meusPosts = $meusPosts->fetchAll(MySql::connect()::FETCH_ASSOC);
-
-           foreach ($meusPosts as $value)
-                $dados[] = $value;
-           
-
+            if($meusPosts->rowCount() === 1) // Eu postei apenas uma vez, adicione no array "dados"
+                $dados[] = $totalPostsMe[0];
+            else if($meusPosts->rowCount() > 1){ // Eu fiz mais de um post, por isso devemos rodar um laço de repetição dentro deles e adicioná-los no array "dados"
+                foreach ($totalPostsMe as $valor)  
+                    $dados[] = $valor;           
+            }
+            
             foreach (UsuariosModel::listFriends() as  $value) {
                 // Laço de repetição nos amigos que o usuário tem.
                 if($value['send'] == $meToken){
-                    // Quem enviou fui eu, por isso quero o id de quem recebeu   
+                    // Quem enviou o pedido de amizade fui eu, por isso quero o token de quem recebeu   
+                    $posts = MySql::connect()->prepare("SELECT posts.*, users.Nome, users.img_profile FROM posts INNER JOIN users
+                                     ON posts.token_user = users.token WHERE posts.token_user = ?"); 
+                    $posts->execute([$value['receive']]);
+                    $userPosts = $posts->fetchAll(MySql::connect()::FETCH_ASSOC);
 
-                    foreach ($posts as $valor) {
-                       if($value['receive'] == $valor['token_user']){
-                         $dados[] = $valor; 
-                       }       
+                    if($posts->rowCount() === 0) // Sem posts desse amigo, pule
+                        continue;
+                    else if($posts->rowCount() === 1) // O amigo só postou uma vez, adicione no array "dados"
+                        $dados[] = $userPosts[0];
+                    else{ // O user fez mais de um post, por isso devemos rodar um laço de repetição dentro deles e adicioná-los no array "dados"
+                        foreach ($userPosts as $valor)  
+                              $dados[] = $valor;           
                     }
                 }else if($value['receive'] == $meToken){
-                    // Quem recebeu o pedido fui eu, por isso quero o id de quem enviou
+                    // Quem recebeu o pedido fui eu, por isso quero o token de quem enviou
+                    $posts = MySql::connect()->prepare("SELECT posts.*, users.Nome FROM posts INNER JOIN users
+                                     ON posts.token_user = users.token WHERE posts.token_user = ?"); 
+                    $posts->execute([$value['send']]);
+                    $userPosts = $posts->fetchAll(MySql::connect()::FETCH_ASSOC);
 
-                    foreach ($posts as $valor) {
-                        if($value['send'] == $valor['token_user']){
-                            $dados[] = $valor; 
-                          }     
+                    if($posts->rowCount() === 0) // Sem posts desse amigo, pule
+                        continue;
+                    else if($posts->rowCount() === 1) // O amigo só postou uma vez, adicione no array "dados"
+                        $dados[] = $userPosts[0];
+                    else{ // O user fez mais de um post, por isso devemos rodar um laço de repetição dentro deles e adicioná-los no array "dados"
+                        foreach ($userPosts as $valor)  
+                            $dados[] = $valor;           
                     }
                 }
             }

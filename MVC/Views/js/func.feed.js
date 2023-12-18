@@ -5,22 +5,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
 })
 window.onload = ()=>{loader.classList.remove('loading')}
 
-const displayFile = ()=>{
-    // Função para mostrar a imagem selecionada pelo usuário em tempo real antes dele fazer o post
-    const imagem = document.getElementById('img')
-    const container = document.getElementById('container')
-
-   const file = imagem.files[0]
-
-   if(file){
-        let objectURL = URL.createObjectURL(file)
-        const box = document.getElementById('whats_new-box')
-
-        box.style.height = '500px'
-        container.innerHTML = `<img src="${objectURL}" />`
-   }
-}
-
 let control =  true
 
 const menuAside = ()=>{
@@ -119,3 +103,27 @@ btnChat.addEventListener('click', ()=>{
         control = true
     }
 })
+
+const displayFile = ()=>{
+    // Função para mostrar a imagem selecionada pelo usuário em tempo real antes dele fazer o post  
+    const imagem = document.getElementById('img') // O arquivo selecionado
+    const container = document.getElementById('container') // Seção destinada que vai aparecer
+    
+    const box = document.getElementById('whats_new-box') // Seção pai
+    const closeBtnImage = document.getElementById('close-img') // Botão para excluir a imagem se o user não quiser postar ela
+    const file = imagem.files[0]
+
+    if(file){
+        let objectURL = URL.createObjectURL(file)
+
+        box.style.height = '500px'
+        closeBtnImage.style.display = 'inline-block';
+        container.innerHTML = `<img src="${objectURL}" />`;
+
+        closeBtnImage.addEventListener('click', ()=>{
+            box.style.height = 'initial'
+            closeBtnImage.style.display = 'none'
+            container.innerHTML = ``;
+        })
+    }
+}

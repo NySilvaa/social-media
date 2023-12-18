@@ -59,4 +59,23 @@ password.addEventListener('keyup', (e)=>{
     })
 })
 
-password.addEventListener('focus', () => infoCampo.classList.add('active'))
+password.addEventListener('focus', () => infoCampo.classList.add('active'));
+
+const form = document.getElementById('form')
+
+form.onsubmit = (e)=>{
+    // Função para verificar se as regras da senha foram respeitadas quando o user fez seu registro.
+    let confirm = 0;
+    
+    requerimentsList.forEach(element =>{
+        let atributo = element.getAttribute('class')
+        
+        if(atributo === 'valid')
+            confirm++
+    })
+
+    if(confirm < 5){
+        e.preventDefault()
+        alert('Sua senha deve seguir as regras descritas.');
+    }
+}
