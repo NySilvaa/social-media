@@ -51,7 +51,7 @@
 
                         case 'video':
                             if(self::validateVideoPost($file)){
-                                // A imagem atende aos requisitos
+                                // O vídeo atende aos requisitos
                                 $post = strip_tags($posts['post_content']);
                                 $token = Tools::getToken($_SESSION['id']);
                                 $videoFormato = explode('.', $file['name']);
@@ -184,8 +184,6 @@
             
             return $dados;
         }
-
-        // TO DO: CRIAR A VALIDAÇÃO PARA ANEXOS ENVIADOS
     }
 
 ?>
